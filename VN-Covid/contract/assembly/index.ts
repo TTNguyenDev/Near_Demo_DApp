@@ -1,11 +1,12 @@
-import { Context, logging, u128, PersistentVector, ContractPromiseBatch } from 'near-sdk-as'
+import { Context, logging, u128, PersistentVector, ContractPromiseBatch, PersistentMap } from 'near-sdk-as'
 import { DonationInfo, UserInfo } from './model'; 
 
 const DEFAULT_DONATION: u128 = u128.from("1000000000000000000000000"); // 1 NEAR
 const UserInfoVector = new PersistentVector<UserInfo>('u');
 const DonationVector = new PersistentVector<DonationInfo>('d');
-let foundation_account_id: string;
+const UserInfoMap = new PersistentMap<string, u32>('um');
 
+let foundation_account_id: string;
 
 /****************
  * VIEW METHODS *
@@ -34,6 +35,15 @@ export function getNegativeNumber(): u64 {
 
 export function getTotalDeclaration(): u64 {
     return UserInfoVector.length;
+}
+
+export function getListDeclaration(): Array<UserInfo> {
+    const result = new Array<UserInfo>(UserInfoVector.length);
+    
+    for(let i = 0; i < UserInfoVector.length; i++) {
+        result[i] = UserInfoVector[i];
+    }
+    return result;
 }
 
 export function getListDonation(): Array<DonationInfo> {
@@ -65,9 +75,21 @@ export function isFoundation(): boolean {
  ******************/
 export function addDeclaration(_name: string, _address: string, _isPos: boolean): void {
     logging.log('addDeclaration for ' + Context.sender);
-    let user = new UserInfo(_name, _address, _isPos);
-    
-    UserInfoVector.push(user);
+
+    if (UserInfoMap.contains(Context.sender)) {
+        logging.log('Already Exist');
+        const index = UserInfoMap.getSome(Context.sender);
+
+        let user = new UserInfo(_name, _address, _isPos);
+
+        UserInfoVector[index] = user;
+        logging.log(user);
+    } else {
+        logging.log('New declaration');
+        let user = new UserInfo(_name, _address, _isPos);
+        UserInfoMap.set(Context.sender, UserInfoVector.length - 1); 
+        UserInfoVector.push(user);
+    }
 }
 
 export function addDonation(): void {

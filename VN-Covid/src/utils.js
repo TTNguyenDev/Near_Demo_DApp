@@ -22,6 +22,7 @@ export async function initContract() {
         'getPositiveNumber',
         'getNegativeNumber',
         'getTotalDeclaration',
+        'getListDeclaration',
         'getListDonation',
         'isFoundation',
         'getTotalDonation'

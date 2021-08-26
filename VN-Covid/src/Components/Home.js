@@ -18,6 +18,7 @@ const Home = (props) => {
             setPositiveNumber(await window.contract.getPositiveNumber());
             setNegativeNumber(await window.contract.getNegativeNumber());
             setTotalDeclaration(await window.contract.getTotalDeclaration());
+            await window.contract.getListDeclaration();
         }
         getDeclarationData();
     }, []);

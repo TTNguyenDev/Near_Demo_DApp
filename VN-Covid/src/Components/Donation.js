@@ -58,6 +58,7 @@ const Donation = (props) => {
             </Table>
             <Row >
                 <Button style={{ margin: '5vh', display: 'flex', justifyContent: 'center' }} onClick={onDonation} variant='primary'>Donation</Button>
+                <label style={{ margin: '1vh', display: 'flex', justifyContent: 'center' }}>Default Donation: 1 NEAR</label>
             </Row>
         </Container>
     );
