@@ -1,10 +1,10 @@
 ## VN-Covid build on Near blockchain
 
 ### Home Screen
-![]('./images/home.png')
+![](./images/home.png)
 
 ### Declaration Screen
-![]('./images/declare.png')
+![](./images/declare.png)
 
 ### Donation Screen
-![]('./images/donate.png')
+![](./images/donate.png)
