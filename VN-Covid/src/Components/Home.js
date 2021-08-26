@@ -38,7 +38,7 @@ const Home = (props) => {
                                     <Card.Header style={{ display: 'flex', justifyContent: 'center' }}>Negative</Card.Header>
                                     <Card.Body>
                                         <Card.Text style={{ display: 'flex', justifyContent: 'center' }}>
-                                            {negativeNumber}
+                                            {negativeNumber}/{totalDeclaration}
                                       </Card.Text>
                                     </Card.Body>
                                   </Card>
@@ -58,7 +58,7 @@ const Home = (props) => {
                                     <Card.Header style={{ display: 'flex', justifyContent: 'center' }}>Positive</Card.Header>
                                     <Card.Body>
                                         <Card.Text style={{ display: 'flex', justifyContent: 'center' }}>
-                                          {positiveNumber} 
+                                          {positiveNumber}/{totalDeclaration} 
                                       </Card.Text>
                                     </Card.Body>
                                   </Card>

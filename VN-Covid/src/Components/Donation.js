@@ -4,16 +4,6 @@ import { Table, Container, Button, Row } from 'react-bootstrap';
 const Donation = (props) => {
     const [listDonation, setListDonation] = useState([]);
     const [totalDonation, setTotalDonation] = useState(0);
-    const promptLists = [
-        {
-            address: 'ttnguyen.testnet',
-            amount: 10
-        },
-        {
-            address: 'ttnguyen12.testnet',
-            amount: 17
-        }
-    ];
 
     const onDonation = async () => {
         await window.contract.addDonation();

@@ -2,15 +2,22 @@ import { Context, logging, u128, PersistentVector, ContractPromiseBatch, Persist
 import { DonationInfo, UserInfo } from './model'; 
 
 const DEFAULT_DONATION: u128 = u128.from("1000000000000000000000000"); // 1 NEAR
+
+/****************
+ *   STORAGE    *
+ ****************/
+
 const UserInfoVector = new PersistentVector<UserInfo>('u');
-const DonationVector = new PersistentVector<DonationInfo>('d');
 const UserInfoMap = new PersistentMap<string, u32>('um');
+const DonationVector = new PersistentVector<DonationInfo>('d');
 
 let foundation_account_id: string;
+
 
 /****************
  * VIEW METHODS *
  ****************/
+
 export function getPositiveNumber(): u64 {
     let total = 0;
     for (let i = 0; i < UserInfoVector.length; i++) {
@@ -73,6 +80,7 @@ export function isFoundation(): boolean {
 /******************
  * MODIFY METHODS *
  ******************/
+
 export function addDeclaration(_name: string, _address: string, _isPos: boolean): void {
     logging.log('addDeclaration for ' + Context.sender);
 
@@ -87,8 +95,8 @@ export function addDeclaration(_name: string, _address: string, _isPos: boolean)
     } else {
         logging.log('New declaration');
         let user = new UserInfo(_name, _address, _isPos);
-        UserInfoMap.set(Context.sender, UserInfoVector.length - 1); 
         UserInfoVector.push(user);
+        UserInfoMap.set(Context.sender, UserInfoVector.length - 1); 
     }
 }
 
@@ -101,9 +109,3 @@ export function addDonation(): void {
     DonationVector.push(donationInfo);
 }
 
-export function withdraw(): void  {
-    logging.log('Withdraw for contract owner ' + foundation_account_id);
-    if (Context.sender == foundation_account_id) {
-       //Do transfer function 
-    } 
-}
